@@ -1,0 +1,27 @@
+[workspace]
+resolver = "3"
+members = ["crates/ocut-core", "crates/ocut-sources", "crates/ocut-cli", "crates/ocutd"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.88"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/siam-parvez/OpenCUT"
+publish = false
+
+[workspace.dependencies]
+ocut-core = { path = "crates/ocut-core" }
+ocut-sources = { path = "crates/ocut-sources" }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+chrono = { version = "0.4", default-features = false, features = ["std", "clock", "serde"] }
+toml = "0.9"
+thiserror = "2"
+proptest = "1"
+jsonschema = { version = "0.58", default-features = false }
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+strip = true

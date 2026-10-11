@@ -1,0 +1,11 @@
+{
+  "limits": [
+    { "kind": "session", "percent": 81, "resets_at": 1792076400 },
+    { "kind": "weekly_all", "percent": 40.5, "resets_at": "2026-10-15T08:00:00Z" },
+    { "kind": "weekly_scoped", "model": "opus", "percent": 22, "resets_at": "2026-10-15T08:00:00Z" },
+    { "kind": "weekly_scoped", "model": "sonnet", "percent": 7, "resets_at": null },
+    { "kind": "weekly_scoped", "model": "something_new", "percent": 99, "resets_at": null },
+    { "kind": "brand_new_kind", "percent": 50, "resets_at": null, "extra": true }
+  ],
+  "unknown_top_level": "ignored"
+}

@@ -1,0 +1,25 @@
+[package]
+name = "ocutd"
+description = "OpenCUT daemon: polls sources and writes the usage snapshot"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+publish.workspace = true
+
+[[bin]]
+name = "ocutd"
+path = "src/main.rs"
+
+[dependencies]
+ocut-core.workspace = true
+ocut-sources.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+chrono.workspace = true
+tokio = { version = "1", features = ["rt", "time", "macros", "signal"] }
+notify-rust = "4"
+
+[dev-dependencies]
+tempfile = "3"

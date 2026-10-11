@@ -1,0 +1,186 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/siam-parvez/OpenCUT/schema/usage.v1.json",
+  "title": "OpenCUT usage snapshot v1",
+  "description": "Written by ocutd to $XDG_RUNTIME_DIR/opencut/usage.json. Additive-only: readers must ignore unknown properties, and v1 never removes or retypes a property.",
+  "type": "object",
+  "required": ["schema", "generated_at", "status"],
+  "properties": {
+    "schema": { "const": "opencut/usage@1" },
+    "generated_at": { "$ref": "#/$defs/timestamp" },
+    "status": {
+      "enum": ["ok", "stale", "degraded", "offline", "token_expired", "error"]
+    },
+    "account": {
+      "type": "object",
+      "properties": {
+        "plan": { "enum": ["pro", "max_5x", "max_20x", "team", "api", "unknown"] }
+      }
+    },
+    "windows": {
+      "type": "object",
+      "properties": {
+        "session_5h": { "$ref": "#/$defs/windowOrNull" },
+        "weekly_all": { "$ref": "#/$defs/windowOrNull" },
+        "weekly_opus": { "$ref": "#/$defs/windowOrNull" },
+        "weekly_sonnet": { "$ref": "#/$defs/windowOrNull" },
+        "extra_usage": {
+          "oneOf": [
+            { "type": "null" },
+            {
+              "type": "object",
+              "properties": {
+                "enabled": { "type": "boolean" },
+                "used_usd": { "type": "number", "minimum": 0 },
+                "limit_usd": { "type": ["number", "null"], "minimum": 0 }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "tokens": {
+      "type": "object",
+      "properties": {
+        "session_5h": { "$ref": "#/$defs/tokenCounts" },
+        "today": { "$ref": "#/$defs/tokenCounts" },
+        "week": { "$ref": "#/$defs/tokenCounts" }
+      }
+    },
+    "by_model": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["model", "family", "total", "est_cost_usd", "share_pct"],
+        "properties": {
+          "model": { "type": "string" },
+          "family": { "type": "string" },
+          "total": { "$ref": "#/$defs/count" },
+          "est_cost_usd": { "type": "number", "minimum": 0 },
+          "share_pct": { "$ref": "#/$defs/pct" }
+        }
+      }
+    },
+    "cost": {
+      "type": "object",
+      "properties": {
+        "session_5h_usd": { "type": "number", "minimum": 0 },
+        "today_usd": { "type": "number", "minimum": 0 },
+        "week_usd": { "type": "number", "minimum": 0 },
+        "pricing": { "type": "string" },
+        "note": { "type": "string" }
+      }
+    },
+    "burn_rate": {
+      "type": "object",
+      "properties": {
+        "tokens_per_min": { "type": "number", "minimum": 0 },
+        "usd_per_hour": { "type": "number", "minimum": 0 },
+        "pct_per_hour": { "type": "number", "minimum": 0 },
+        "window_min": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "active_sessions": { "$ref": "#/$defs/count" },
+    "sources": {
+      "type": "object",
+      "properties": {
+        "oauth_api": {
+          "type": "object",
+          "properties": {
+            "enabled": { "type": "boolean" },
+            "ok": { "type": "boolean" },
+            "last_success": { "$ref": "#/$defs/timestampOrNull" },
+            "next_poll_at": { "$ref": "#/$defs/timestampOrNull" },
+            "backoff_s": { "$ref": "#/$defs/count" }
+          }
+        },
+        "statusline": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "last_push": { "$ref": "#/$defs/timestampOrNull" }
+          }
+        },
+        "local_logs": {
+          "type": "object",
+          "properties": {
+            "ok": { "type": "boolean" },
+            "files": { "$ref": "#/$defs/count" },
+            "parse_errors": { "$ref": "#/$defs/count" }
+          }
+        }
+      }
+    },
+    "errors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["code", "message", "at"],
+        "properties": {
+          "code": { "type": "string" },
+          "message": { "type": "string" },
+          "at": { "$ref": "#/$defs/timestamp" }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "timestamp": {
+      "description": "RFC 3339 UTC timestamp.",
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(Z|[+-]00:00)$"
+    },
+    "timestampOrNull": {
+      "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/timestamp" }]
+    },
+    "pct": { "type": "number", "minimum": 0, "maximum": 100 },
+    "count": { "type": "integer", "minimum": 0 },
+    "windowOrNull": {
+      "description": "null means the window is unknown (shown as n/a).",
+      "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/window" }]
+    },
+    "window": {
+      "type": "object",
+      "required": ["pct", "source"],
+      "properties": {
+        "pct": { "$ref": "#/$defs/pct" },
+        "resets_at": {
+          "description": "null means no window is currently open.",
+          "$ref": "#/$defs/timestampOrNull"
+        },
+        "seconds_to_reset": { "$ref": "#/$defs/count" },
+        "source": { "enum": ["oauth_api", "statusline", "local_estimate"] },
+        "estimated": { "type": "boolean" },
+        "fetched_at": { "$ref": "#/$defs/timestamp" },
+        "stale": { "type": "boolean" },
+        "projection": {
+          "oneOf": [
+            { "type": "null" },
+            {
+              "type": "object",
+              "required": ["pct_at_reset", "confidence"],
+              "properties": {
+                "pct_at_reset": { "$ref": "#/$defs/pct" },
+                "hits_limit_at": { "$ref": "#/$defs/timestampOrNull" },
+                "confidence": { "enum": ["low", "med", "high"] }
+              }
+            }
+          ]
+        }
+      },
+      "if": { "properties": { "source": { "const": "local_estimate" } } },
+      "then": { "properties": { "estimated": { "const": true } }, "required": ["estimated"] }
+    },
+    "tokenCounts": {
+      "type": "object",
+      "properties": {
+        "input": { "$ref": "#/$defs/count" },
+        "output": { "$ref": "#/$defs/count" },
+        "cache_write": { "$ref": "#/$defs/count" },
+        "cache_read": { "$ref": "#/$defs/count" },
+        "total": { "$ref": "#/$defs/count" },
+        "messages": { "$ref": "#/$defs/count" }
+      }
+    }
+  }
+}

@@ -1,0 +1,50 @@
+# OpenCUT usage daemon (systemd --user unit).
+# Install: cp opencut.service ~/.config/systemd/user/ && systemctl --user enable --now opencut
+# ExecStart assumes `cargo install --path crates/ocutd` (~/.cargo/bin); edit for other locations.
+
+[Unit]
+Description=OpenCUT: Claude plan usage snapshot daemon (unofficial)
+Documentation=https://github.com/siam-parvez/OpenCUT
+After=default.target
+
+[Service]
+Type=simple
+ExecStart=%h/.cargo/bin/ocutd
+Restart=on-failure
+RestartSec=10s
+
+# Snapshot: $XDG_RUNTIME_DIR/opencut (0700, kept across restarts for widgets).
+RuntimeDirectory=opencut
+RuntimeDirectoryMode=0700
+RuntimeDirectoryPreserve=yes
+# Notify state and the statusline cache: ~/.cache/opencut.
+CacheDirectory=opencut
+CacheDirectoryMode=0700
+UMask=0077
+
+# Hardening. Home is read-only; ~/.claude is explicitly read-only too.
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=read-only
+ReadOnlyPaths=%h/.claude
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectKernelLogs=yes
+ProtectControlGroups=yes
+ProtectClock=yes
+ProtectHostname=yes
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+RestrictNamespaces=yes
+RestrictRealtime=yes
+RestrictSUIDSGID=yes
+LockPersonality=yes
+MemoryDenyWriteExecute=yes
+SystemCallArchitectures=native
+SystemCallFilter=@system-service
+SystemCallFilter=~@privileged
+CapabilityBoundingSet=
+
+[Install]
+WantedBy=default.target

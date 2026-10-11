@@ -1,6 +1,6 @@
 # OpenCUT (Open Claude Usage Tracker): Implementation Plan
 
-**Target machine:** Ubuntu 26.04, GNOME Shell 50.1 on Wayland, Claude Code 2.1.296, Pro plan. Installed tools: cargo, python3 with PyGObject, GTK 4.22, libadwaita 1.9, gjs and node 24. The AppIndicator extension is enabled. Project directory: `/home/siamparvez/Downloads/OpenCUT` (empty).
+**Target machine:** Ubuntu 26.04, GNOME Shell 50.1 on Wayland, Claude Code 2.1.296, Pro plan. Installed tools: cargo, python3 with PyGObject, GTK 4.22, libadwaita 1.9, gjs and node 24. The AppIndicator extension is enabled. Project directory: local checkout (empty at start).
 
 ## 1. Decisions (conflicts resolved)
 

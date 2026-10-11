@@ -1,0 +1,9 @@
+{
+  "model": { "id": "claude-haiku-4-5" },
+  "rate_limits": {
+    "five_hour": { "used_percentage": 140, "resets_at": null },
+    "seven_day": { "resets_at": "2026-10-18T00:00:00Z" },
+    "seven_day_opus": { "used_percentage": 12.0, "resets_at": 1792281600000 },
+    "unknown_window": { "used_percentage": 1 }
+  }
+}
