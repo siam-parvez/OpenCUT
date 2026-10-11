@@ -1,0 +1,23 @@
+[package]
+name = "ocut-tray"
+description = "OpenCUT tray icon (StatusNotifierItem) that reads the usage snapshot"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+publish.workspace = true
+
+[[bin]]
+name = "ocut-tray"
+path = "src/main.rs"
+
+[dependencies]
+ocut-core.workspace = true
+serde_json.workspace = true
+chrono.workspace = true
+ksni = { version = "0.3", default-features = false, features = ["blocking", "tokio"] }
+notify = { version = "8", default-features = false }
+
+[dev-dependencies]
+tempfile = "3"

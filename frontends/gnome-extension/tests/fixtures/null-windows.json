@@ -1,0 +1,6 @@
+{
+  "schema": "opencut/usage@1",
+  "generated_at": "2026-10-11T12:30:05Z",
+  "status": "degraded",
+  "windows": { "session_5h": null, "weekly_all": null, "weekly_opus": null, "weekly_sonnet": null, "extra_usage": null }
+}

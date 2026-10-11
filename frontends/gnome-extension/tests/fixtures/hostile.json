@@ -1,0 +1,10 @@
+{
+  "schema": "opencut/usage@1",
+  "generated_at": "not a date",
+  "status": "weird",
+  "windows": { "session_5h": { "pct": 250, "resets_at": 12345, "source": "?", "projection": { "pct_at_reset": "x" } },
+               "weekly_all": "nope", "weekly_opus": [1,2], "weekly_sonnet": { "pct": -5 } },
+  "tokens": { "today": { "total": -3, "messages": "many" } },
+  "cost": { "today_usd": null },
+  "errors": [ null, 5, { "code": 1 } ]
+}

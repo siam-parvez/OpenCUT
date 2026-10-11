@@ -1,0 +1,13 @@
+{
+  "schema": "opencut/usage@1",
+  "generated_at": "2026-10-11T12:20:00Z",
+  "status": "stale",
+  "account": { "plan": "pro" },
+  "windows": {
+    "session_5h": { "pct": 80.0, "resets_at": "2026-10-11T14:00:00Z", "source": "statusline", "estimated": false, "stale": true },
+    "weekly_all": { "pct": 40.0, "resets_at": "2026-10-15T09:00:00Z", "source": "statusline", "stale": true },
+    "weekly_opus": null,
+    "weekly_sonnet": null
+  },
+  "errors": [ { "code": "oauth_backoff", "message": "429 from usage endpoint; retrying in 240s", "at": "2026-10-11T12:19:00Z" } ]
+}

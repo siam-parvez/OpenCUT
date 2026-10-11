@@ -1,0 +1,17 @@
+# XDG autostart entry for the OpenCUT tray icon. Not installed automatically.
+# Install: cp ocut-tray.desktop ~/.config/autostart/
+# Exec assumes `cargo install --path crates/ocut-tray` (~/.cargo/bin on PATH);
+# use an absolute path if your session PATH does not include it.
+[Desktop Entry]
+Type=Application
+Name=OpenCUT Tray
+GenericName=Claude usage tray icon
+Comment=Shows Claude plan usage (unofficial) from the OpenCUT snapshot
+Exec=ocut-tray
+Icon=utilities-system-monitor
+Terminal=false
+Categories=System;Monitor;
+NoDisplay=true
+X-GNOME-Autostart-enabled=true
+X-GNOME-Autostart-Delay=5
+X-KDE-autostart-after=panel

@@ -1,0 +1,7 @@
+{
+  "schema": "opencut/usage@1",
+  "generated_at": "2026-10-11T12:30:05Z",
+  "status": "token_expired",
+  "windows": { "session_5h": { "pct": 10, "resets_at": null, "source": "oauth_api" } },
+  "errors": [ { "code": "token_expired", "message": "run `claude` once", "at": "2026-10-11T12:30:00Z" } ]
+}

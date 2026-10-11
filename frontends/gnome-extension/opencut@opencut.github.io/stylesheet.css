@@ -1,0 +1,33 @@
+/* SPDX-License-Identifier: GPL-2.0-or-later */
+.opencut-panel { spacing: 4px; }
+.opencut-icon { icon-size: 16px; }
+.opencut-label.opencut-warn,
+.opencut-window-pct.opencut-warn,
+.opencut-status .opencut-warn { color: #f8c43b; }
+.opencut-label.opencut-crit,
+.opencut-window-pct.opencut-crit,
+.opencut-status .opencut-crit { color: #ff6b5b; }
+.opencut-est { font-size: 0.75em; font-style: italic; opacity: 0.8; }
+
+.opencut-window-item { min-width: 280px; }
+.opencut-window-title { font-weight: bold; }
+.opencut-window-sub { font-size: 0.85em; color: #c0bfbc; }
+.opencut-bar-track {
+  height: 6px;
+  margin: 4px 0;
+  border-radius: 3px;
+  background-color: rgba(255, 255, 255, 0.15);
+}
+.opencut-bar-fill { height: 6px; border-radius: 3px; background-color: #57e389; }
+.opencut-bar-fill.opencut-warn { background-color: #f8c43b; }
+.opencut-bar-fill.opencut-crit { background-color: #ff6b5b; }
+.opencut-note, .opencut-errors { font-size: 0.85em; color: #c0bfbc; }
+.opencut-errors { color: #ff9a8f; }
+
+.opencut-tooltip {
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 0.9em;
+  color: #ffffff;
+  background-color: rgba(30, 30, 30, 0.95);
+}

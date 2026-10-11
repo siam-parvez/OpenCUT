@@ -1,0 +1,16 @@
+{
+  "schema": "opencut/usage@1",
+  "generated_at": "2026-10-11T12:30:05Z",
+  "status": "ok",
+  "account": { "plan": "max_5x" },
+  "windows": {
+    "session_5h": { "pct": 93.6, "resets_at": "2026-10-11T12:45:00Z", "source": "local_estimate", "estimated": true,
+                    "projection": { "pct_at_reset": 100, "hits_limit_at": "2026-10-11T12:40:35Z", "confidence": "low" } },
+    "weekly_all": null,
+    "weekly_opus": null,
+    "weekly_sonnet": null
+  },
+  "tokens": { "today": { "input": 1000, "output": 2000, "cache_write": 0, "cache_read": 3000, "messages": 4 } },
+  "cost": { "today_usd": 0.5, "week_usd": 2.25, "note": "API-equivalent estimate; plan is flat-rate" },
+  "burn_rate": { "tokens_per_min": 1500, "usd_per_hour": 0.4, "pct_per_hour": 20.5, "window_min": 15 }
+}

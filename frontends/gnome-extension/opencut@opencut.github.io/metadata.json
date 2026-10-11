@@ -1,0 +1,10 @@
+{
+  "uuid": "opencut@opencut.github.io",
+  "name": "OpenCUT",
+  "description": "Unofficial Claude plan usage in the top bar: 5-hour and weekly limits, reset countdowns, tokens and an API-equivalent cost estimate. Reads only the local snapshot written by the ocutd daemon; makes no network requests. Not affiliated with Anthropic.",
+  "shell-version": ["49", "50"],
+  "url": "https://github.com/siam-parvez/OpenCUT",
+  "settings-schema": "org.gnome.shell.extensions.opencut",
+  "gettext-domain": "opencut",
+  "version-name": "0.1.0"
+}

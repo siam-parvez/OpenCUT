@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema id="org.gnome.shell.extensions.opencut" path="/org/gnome/shell/extensions/opencut/">
+    <key name="panel-format" type="s">
+      <default>'{5h.pct}% · {5h.reset_in}'</default>
+      <summary>Panel text template</summary>
+      <description>Same keys as `ocut --format`, e.g. {5h.pct}, {5h.reset_in}, {7d.pct}, {cost.today:.2}.</description>
+    </key>
+    <key name="panel-position" type="s">
+      <choices>
+        <choice value="left"/>
+        <choice value="center"/>
+        <choice value="right"/>
+      </choices>
+      <default>'right'</default>
+      <summary>Top-bar position</summary>
+    </key>
+    <key name="show-cost" type="b">
+      <default>true</default>
+      <summary>Show the API-equivalent cost estimate in the menu</summary>
+    </key>
+    <key name="warn-threshold" type="i">
+      <range min="1" max="100"/>
+      <default>75</default>
+      <summary>Warning threshold (percent)</summary>
+    </key>
+    <key name="crit-threshold" type="i">
+      <range min="1" max="100"/>
+      <default>90</default>
+      <summary>Critical threshold (percent)</summary>
+    </key>
+  </schema>
+</schemalist>
