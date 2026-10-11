@@ -23,18 +23,16 @@ CacheDirectoryMode=0700
 UMask=0077
 
 # Hardening. Home is read-only; ~/.claude is explicitly read-only too.
+# Omitted: CapabilityBoundingSet, ProtectHostname, PrivateDevices, ProtectClock,
+# ProtectKernelModules and ProtectKernelLogs. A systemd --user manager cannot
+# drop capabilities (Ubuntu restricts user namespaces), so they fail with 218.
 NoNewPrivileges=yes
 ProtectSystem=strict
 ProtectHome=read-only
 ReadOnlyPaths=%h/.claude
 PrivateTmp=yes
-PrivateDevices=yes
 ProtectKernelTunables=yes
-ProtectKernelModules=yes
-ProtectKernelLogs=yes
 ProtectControlGroups=yes
-ProtectClock=yes
-ProtectHostname=yes
 RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
 RestrictNamespaces=yes
 RestrictRealtime=yes
@@ -44,7 +42,6 @@ MemoryDenyWriteExecute=yes
 SystemCallArchitectures=native
 SystemCallFilter=@system-service
 SystemCallFilter=~@privileged
-CapabilityBoundingSet=
 
 [Install]
 WantedBy=default.target
