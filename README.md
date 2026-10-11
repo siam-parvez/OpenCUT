@@ -35,7 +35,7 @@ ocut --no-daemon --json                 # compute in-process instead of reading 
 ocut doctor                             # file modes, source health, Claude Code version
 ```
 
-Without `--no-daemon`, `ocut` reads the daemon's snapshot if it is less than 90 s old. Otherwise it computes one in-process. Only `ocutd`, or an explicit `ocut --no-daemon`, ever calls the OAuth endpoint, so status bars that run `ocut` every few seconds never add API requests.
+Without `--no-daemon`, `ocut` reads the daemon's snapshot if it is less than 90 s old. Otherwise it computes one in-process. Only `ocutd` ever calls the OAuth endpoint (`ocut` itself never does, even with `--no-daemon`), so status bars that run `ocut` every few seconds never add API requests.
 
 Format keys: `5h`, `7d`, `opus` and `sonnet`, each with `.pct`, `.reset_in`, `.resets_at`, `.source`, `.est` (`~` for an estimate) and `.proj`. Also `cost.{5h,today,week}`, `tokens.{5h,today,week}`, `burn.{tok_min,usd_h,pct_h}`, `sessions`, `status` and `plan`. Add `:.N` to set the number of decimals. Write `{{` and `}}` for literal braces. A value that isn't known prints `n/a`.
 

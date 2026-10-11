@@ -12,7 +12,7 @@ use std::process::ExitCode;
 use chrono::{DateTime, Duration, Utc};
 use clap::{Parser, Subcommand};
 use ocut_core::{Config, Snapshot};
-use ocut_sources::collect::{Collector, fetch_oauth};
+use ocut_sources::collect::Collector;
 use ocut_sources::paths::{Paths, load_config};
 use ocut_sources::statusline::{StatuslineCache, parse_hook_input, render_line, write_cache};
 
@@ -33,7 +33,7 @@ struct Cli {
     /// Output template, e.g. '{5h.pct:.0}% ↻{5h.reset_in}'.
     #[arg(long, value_name = "TEMPLATE")]
     format: Option<String>,
-    /// Compute the snapshot in this process instead of reading ocutd's.
+    /// Compute the snapshot in this process from local sources (never calls the API).
     #[arg(long)]
     no_daemon: bool,
     /// Config file (default ~/.config/opencut/config.toml).
@@ -225,15 +225,11 @@ fn read_daemon_snapshot(paths: &Paths, cfg: &Config, now: DateTime<Utc>) -> Opti
     .then_some(s)
 }
 
-/// In-process snapshot. Only an explicit `--no-daemon` may call the OAuth
-/// endpoint, so status bars polling `ocut` never multiply API requests.
-fn in_process(paths: &Paths, cfg: Config, allow_oauth: bool, now: DateTime<Utc>) -> Snapshot {
-    let mut c = Collector::new(paths.clone(), cfg, allow_oauth);
+/// In-process snapshot from local sources only. The OAuth endpoint is polled
+/// by `ocutd` alone, so status bars polling `ocut` never add API requests.
+fn in_process(paths: &Paths, cfg: Config, now: DateTime<Utc>) -> Snapshot {
+    let mut c = Collector::new(paths.clone(), cfg, false);
     c.scan_logs(now);
-    if c.oauth_due(now) {
-        let r = fetch_oauth(paths, now);
-        c.apply_oauth(r, now);
-    }
     c.snapshot(now)
 }
 
@@ -249,7 +245,7 @@ fn show(cli: &Cli, paths: &Paths, mut cfg: Config) -> ExitCode {
         .flatten()
     {
         Some(s) => s,
-        None => in_process(paths, cfg, cli.no_daemon, now),
+        None => in_process(paths, cfg, now),
     };
     let out = if cli.json {
         Ok(serde_json::to_string_pretty(&snap).expect("snapshot serialises"))

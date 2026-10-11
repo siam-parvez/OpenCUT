@@ -170,3 +170,6 @@ Config lives at `~/.config/opencut/config.toml` with sections `[sources]`, `[pol
 5. **Notifications:** 75 / 90 / 100%, plus a 5h-reset notice.
 6. **Publishing:** public GitHub repo from day one. Submit to extensions.gnome.org at M3.
 7. **Plan presets:** Pro, Max 5x and Max 20x for the local estimate. Auto-calibrate from API or statusline readings when they're available.
+8. **Offline 5h estimate:** keep the Pro, Max 5x and Max 20x presets, and auto-calibrate from API or statusline readings. Mark the value as estimated until then.
+9. **Per-model breakdown:** covers a rolling 7 days.
+10. **OAuth calls:** made by `ocutd` only. `ocut` never calls the endpoint, even with `--no-daemon`.
